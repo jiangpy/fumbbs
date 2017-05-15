@@ -1,0 +1,76 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+    个人基本信息设置
+{% endblock %}
+
+{% block head %}
+    <script src="https://cdn.staticfile.org/plupload/2.1.9/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/plupload/2.1.9/plupload.min.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.min.js"></script>
+    <link rel="stylesheet" href="{{ static('front/css/personagesettings.css') }}">
+    <script src="{{ static('front/js/personagesettings.js') }}"></script>
+{% endblock %}
+
+{% block container %}
+    <div class="box">
+        <div class="page-header">
+            <h2>{{ self.title() }}</h2>
+        </div>
+        <div class="form-box">
+            <form action="" class="form-row">
+                <div class="form-group">
+
+                    <label for="basic-url">用户名:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="用户名" name="username" value="{{ front_user.username or ''}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="basic-url">真实姓名:</label>
+                    <div class="input-group">
+                        <input type="text" name="realname" class="form-control" placeholder="真实姓名" value="{{ front_user.realname or '' }}" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="radio">
+                        <label>
+                        <input type="radio" name="gender-radio" id="man-radio" value="1" {% if front_user.gender==1 %}checked{% endif %}>
+                            男
+                        </label>
+                        <label>
+                        <input type="radio" name="gender-radio" id="woman-radio" value="2" {% if front_user.gender==2 %}checked{% endif %}>
+                            女
+                        </label>
+                         <label>
+                        <input type="radio" name="gender-radio" id="secrecy-radio" value="0" {% if front_user.gender==0 %}checked{% endif %}>
+                            保密
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="basic-url">头像:</label>
+                    <div class="input-group" id="upload-avater-btn">
+                            <img src="{{ front_user.avater }}" alt="" class="avatar-img" id="avater-img" style="cursor: pointer">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="basic-url">QQ号码:</label>
+                    <div class="input-group">
+                        <input name="qq" type="text" class="form-control" placeholder="QQ号码" value="{{ front_user.qq or '' }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="basic-url">个性签名:</label>
+                    <div class="input-group">
+                        <textarea style="resize: none" name="signature" id="signature" cols="30" rows="6">{{ front_user.signature or '' }}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input  type="submit" value="保存" class="btn btn-success" id="submit-btn" data-user-id='{{ front_user.uid }}'>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'front/front_base.html' %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static('common/wangEditor/dist/css/wangEditor.min.css') }}">
+    <script src="https://cdn.staticfile.org/plupload/2.1.9/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/plupload/2.1.9/plupload.min.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.min.js"></script>
+    <script src="{{ static('common/js/editor.js') }}"></script>
+    <link rel="stylesheet" href="{{ static('front/css/front_post_comment.css') }}">
+    <script src="{{ static('front/js/front_post_comment.js') }}"></script>
+{% endblock %}
+
+{% block title %}
+    评论帖子<<{{ post.title }}>>
+{% endblock %}
+
+
+
+{% block container %}
+    <div class="container-inner">
+        <div class="post-title">
+            <span>评论：</span><a href="{{ url_for('front.post_detail',post_id = post.id) }}">《{{ post.title }}》</a>
+        </div>
+        {% if comment %}
+            <div class="comment-content" data-comment-id = {{ comment.id }}>
+                <p>回复：{{ comment.author.username }}</p>
+                <p>“{{ comment.content|safe }}”</p>
+            </div>
+        {% endif %}
+        <div class="comment-group">
+            {% include 'common/editor.html' %}
+        </div>
+        <div class="botton-group">
+            <button class="btn-warning btn" data-post-id={{ post.id }} id='submit-comment'>提交评论</button>
+        </div>
+    </div>
+{% endblock %}

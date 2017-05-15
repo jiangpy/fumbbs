@@ -1,0 +1,38 @@
+.box{
+    margin: auto;
+    width: 700px;
+    height: 900px;
+    padding: 1px;
+    background: white;
+}
+
+.box h2{
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+.box .form-box{
+    width: 500px;
+    left:0;
+    right:0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.avatar-img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+
+}
+
+.email-btn{
+    float: none;
+}
+
+
+.box form{
+    width: 300px;
+}

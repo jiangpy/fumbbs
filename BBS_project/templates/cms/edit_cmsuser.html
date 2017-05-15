@@ -1,0 +1,54 @@
+{% extends 'cms/cmsbase/cmsbase.html' %}
+
+{% block title %}
+    编辑CMS用户
+{% endblock %}
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block head %}
+    <script src="{{ static('cms/js/edit_cmsuser.js') }}"></script>
+{% endblock %}
+
+{% block main_content %}
+    <form action="" method="post" style="width: 350px">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">用户名：</span>
+                <input type="text" name="username"  class="form-control" value="{{ cmsuser.username }}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">邮箱：</span>
+                <input type="email" name="email" value="{{ cmsuser.email }}" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="checkbox">
+            {% for role in roles %}
+                    <label for="">
+                            {% if role.id in current_roles %}
+                                <input type="checkbox" name="roles" value="{{ role.id }}" checked>{{ role.name }}
+                            {% else %}
+                                <input type="checkbox" name="roles" value="{{ role.id }}" >{{ role.name }}
+                            {% endif %}
+                    </label>
+            {% endfor %}
+
+
+        </div>
+        {% if cmsuser.is_active %}
+            <div class="form-group">
+                <button class="btn btn-danger" id="is_black_btn" data_is_active="1" data_user_id={{ cmsuser.uid }}>加入黑名单</button>
+            </div>
+        {% else %}
+            <div class="form-group">
+                <button class="btn btn-success" id="is_black_btn" data_is_active="0" data_user_id={{ cmsuser.uid }}>移出黑名单</button>
+            </div>
+        {% endif %}
+        <div class="form-group">
+            <button class="btn btn-primary" id="submit" data_user_id={{ cmsuser.uid }} >保存</button>
+        </div>
+    </form>
+{% endblock %}

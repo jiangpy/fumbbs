@@ -1,0 +1,19 @@
+
+.sort-group{
+    float: left;
+}
+.board-filter-group{
+    float: right;
+}
+
+
+.top-box select{
+    background: none;
+    border: 1px solid #dfdfdf;
+    color: #666;
+    border-radius: 3px;
+}
+
+.page-nav{
+    text-align: center;
+}

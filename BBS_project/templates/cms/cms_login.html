@@ -1,0 +1,39 @@
+{% extends 'base/bootstrap.html' %}
+
+{% block staticblock %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='cms/css/ie10-viewport-bug-workaround.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='cms/css/signin.css') }}">
+    <script src="{{ url_for('static',filename='cms/js/ie-emulation-modes-warning.js') }}"></script>
+    <link rel="stylesheet" href="{{ static('cms/css/login.css') }}">
+    <script src="{{ static('common/js/myajax.js') }}"></script>
+    <script src="{{ static('cms/js/login.js') }}"></script>
+{% endblock %}
+
+{% block titleblock %}
+    CMS登录
+{% endblock %}
+
+
+{% block bodyblock %}
+    <div class="container">
+        <form class="form-signin" action="" method="post">
+            <h2 class="form-signin-heading">请登录</h2>
+            <label for="inputEmail" class="sr-only">邮箱</label>
+            <input type="email" id="inputEmail" name="email" class="form-control" placeholder="邮箱" required autofocus>
+            <label for="inputPassword" class="sr-only">密码</label>
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码" required>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="1" name="remember"> 记住我
+                </label>
+            </div>
+            <p id="error-info" style="text-align: center" class="text-danger"></p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        </form>
+
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ url_for('static',filename='cms/js/ie10-viewport-bug-workaround.js') }}"></script>
+{% endblock %}

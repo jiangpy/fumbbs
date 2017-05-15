@@ -1,0 +1,39 @@
+{% extends 'cms/cmsbase/cmsbase.html' %}
+{% block title %}
+    修改邮箱
+{% endblock %}
+
+{% block head %}
+    <script src="{{ static('cms/js/cms_resetemail.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    修改邮箱
+{% endblock %}
+
+{% block main_content %}
+    <form action="" method="post" style="width: 350px">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="email" class="form-control" name="oldemail" placeholder="请输入当前邮箱">
+                <span class="input-group-addon btn btn-primary" id="captcha_btn" >获取验证码</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <input type="email" class="form-control" placeholder="验证码" name="captcha">
+                <span class="input-group-addon">请输入验证码</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <input type="email" class="form-control" name="newemail" placeholder="请输入新邮箱" >
+                <span class="input-group-addon">新邮箱</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <botton class="btn btn-primary" id="resetemail">立即修改</botton>
+        </div>
+
+    </form>
+{% endblock %}

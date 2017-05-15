@@ -1,0 +1,63 @@
+{% extends 'cms/cmsbase/cmsbase.html' %}
+
+{% block title %}
+    用户资料详情
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-bordered" >
+        <tr>
+            <td>用户名：</td>
+            <td>{{ frontuser.username }}</td>
+            <td>手机号码：</td>
+            <td>{{ frontuser.telephone }}</td>
+        </tr>
+        <tr>
+            <td>注册时间：</td>
+            <td>{{ frontuser.join_time }}</td>
+            <td>状态：</td>
+            <td>
+                {% if frontuser.is_active %}
+                    <button  class="btn btn-success btn-xs is_active_btn" data-is_active = '1' data-frontuser-id = {{ frontuser.uid }}>可用</button>
+                {% else %}
+                    <button  class="btn btn-danger btn-xs is_active_btn"  data-is_active = '0' data-frontuser-id = {{ frontuser.uid }}>禁用</button>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>真实姓名：</td>
+            <td>{{ frontuser.realname or '未填写' }}</td>
+            <td>性别：</td>
+            <td>
+                {% if frontuser.gender==0 %}
+                    保密
+                {% elif frontuser.gender==1 %}
+                    男
+                {% elif frontuser.gender==2 %}
+                    女
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>邮箱：</td>
+            <td>{{ frontuser.email or '未填写' }}</td>
+            <td>论坛积分：</td>
+            <td>{{ frontuser.points}}</td>
+        </tr>
+        <tr>
+            <td>qq号码：</td>
+            <td>{{ frontuser.qq or '未填写' }}</td>
+            <td>个性签名：</td>
+            <td>{{ frontuser.signature or '未填写'}}</td>
+        </tr>
+
+    </table>
+{% endblock %}

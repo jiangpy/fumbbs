@@ -1,0 +1,58 @@
+{% extends 'cms/cmsbase/cmsbase.html' %}
+
+{% block title %}
+    前台用户管理
+{% endblock %}
+
+{% block head %}
+    <script src="{{ static('common//js/myparam.js') }}"></script>
+    <link rel="stylesheet" href="{{ static('cms/css/cms_frontuser_list.css') }}">
+    <script src="{{ static('cms/js/cms_frontuser_manage.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="top-box">
+        <label for="">排序：</label>
+        <select name="" class="sort-select" id="sort_select">
+            <option value="1" {% if currentsort =='1' %}selected{% endif %}>按注册时间排序</option>
+            <option value="2" {% if currentsort =='2' %}selected{% endif %}>按评论量排序</option>
+            <option value="3" {% if currentsort =='3' %}selected{% endif %}>按发帖量排序</option>
+        </select>
+    </div>
+    <table class="table table-bordered" >
+        <thead>
+            <th>用户名</th>
+            <th>加入时间</th>
+            <th>发表帖子数量</th>
+            <th>总评论条数</th>
+            <th>分组</th>
+            <th>状态/操作</th>
+            <th>查看详情</th>
+
+        </thead>
+        <tbody>
+            {% for frontuser in frontusers %}
+                <tr>
+                    <td>{{ frontuser.username }}</td>
+                    <td>{{ frontuser.join_time }}</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>暂未实现</td>
+                    <td>{% if frontuser.is_active %}
+                            <button  class="btn btn-success btn-xs is_active_btn" data-is_active = '1' data-frontuser-id = {{ frontuser.uid }}>可用</button>
+                        {% else %}
+                            <button  class="btn btn-danger btn-xs is_active_btn"  data-is_active = '0' data-frontuser-id = {{ frontuser.uid }}>禁用</button>
+                        {% endif %}
+                    </td>
+                    <td><a href="{{ url_for('cms.front_user_detail',userid=frontuser.uid) }}" class="btn btn-info btn-xs">详情</a></td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
+

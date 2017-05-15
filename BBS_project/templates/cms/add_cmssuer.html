@@ -1,0 +1,44 @@
+{% extends 'cms/cmsbase/cmsbase.html' %}
+
+{% block title %}
+    添加CMS管理员
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block head %}
+    <script src="{{ static('cms/js/addcmsuser.js') }}"></script>
+{% endblock %}
+
+{% block main_content %}
+    <form action="" method="post"  style="width: 350px">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">用户名</span>
+                <input type="text" name="username" placeholder="用户名" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">邮箱</span>
+                <input type="text" name="email" placeholder="邮箱" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">密码</span>
+                <input type="password" name="password" placeholder="密码" class="form-control">
+            </div>
+        </div>
+        <div class="checkbox">
+            {% for role in roles %}
+                <label for="">
+                    <input type="checkbox" name="roles" value="{{ role.id }}">{{ role.name }}
+                </label>
+            {% endfor %}
+        </div>
+        <button class="btn btn-primary" id="submit">点击添加</button>
+    </form>
+{% endblock %}

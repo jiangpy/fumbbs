@@ -1,0 +1,21 @@
+.top-box{
+    padding: 5px 10px;
+    border-radius: 5px;
+    background:#ecedf0;
+    overflow: hidden;
+}
+.sort-select{
+    border: 1px solid #dfdfdf;
+    background: none;
+    color: #666;
+    border-radius: 2px;
+}
+
+
+.main_content table {
+    text-align: center;
+}
+.main_content table th{
+    text-align: center;
+}
+

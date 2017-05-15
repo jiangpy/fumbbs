@@ -1,0 +1,49 @@
+{% extends 'cms/cmsbase/cmsbase.html' %}
+
+{% block title %}
+    CMS用户管理
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static('cms/css/cmsusermanage.css') }}">
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+        <div class="top-box">
+            <a href="{{ url_for('cms.adduser') }}" class="btn btn-warning">添加管理员</a>
+        </div>
+        <table class="table table-bordered" >
+            <thead>
+                <th>用户名</th>
+                <th>邮箱</th>
+                <th>加入时间</th>
+                <th>分组</th>
+                <th>状态</th>
+                <th>操作</th>
+            </thead>
+            <tbody>
+                {% for cmsuser in cmsusers %}
+                    <tr>
+                        <td>{{ cmsuser.username }}</td>
+                        <td>{{ cmsuser.email }}</td>
+                        <td>{{ cmsuser.join_time }}</td>
+                        <td>{{ cmsuser.roles[0].name }}</td>
+                        <td>{% if cmsuser.is_active %}
+                                <button  class="btn btn-success btn-xs">可用</button>
+                            {% else %}
+                                <button  class="btn btn-danger btn-xs">禁用</button>
+                            {% endif %}
+                        </td>
+                        <td>{% if cms_user.uid != cmsuser.uid  %}
+                            <a href="{{ url_for('cms.edit_cmsuser',cmsuser=cmsuser.uid) }}" class="btn btn-primary btn-xs">编辑</a>
+                        {% endif %}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+{% endblock %}

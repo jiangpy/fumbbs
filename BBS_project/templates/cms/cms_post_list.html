@@ -1,0 +1,108 @@
+{% extends 'cms/cmsbase/cmsbase.html' %}
+
+{% block title %}
+    帖子管理
+{% endblock %}
+
+{% block head %}
+    <script src="{{ static('common/js/myparam.js') }}"></script>
+    <script src="{{ static('cms/js/cms_post_list.js') }}"></script>
+    <link rel="stylesheet" href="{{ static('cms/css/cms_post_list.css') }}">
+{% endblock %}
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="top-box">
+        <div class="sort-group">
+            <label for="">排序：</label>
+            <select name=""  id="sort_select">
+                <option value="1" {% if sort ==1 %}selected{% endif %}>按发布时间排序</option>
+                <option value="2" {% if sort ==2 %}selected{% endif %}>按评论量排序</option>
+                <option value="3" {% if sort ==3 %}selected{% endif %}>按加精量排序</option>
+            </select>
+        </div>
+        <div class="board-filter-group">
+            <label for="">过滤板块：</label>
+            <select name="" id="board-filter_select">
+                <option value="0">所有板块</option>
+                {% for board in boards %}
+                    <option value="{{ board.id  }}" {% if board.id == c_board_id %}selected{% endif %}>{{ board.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <th>帖子标题</th>
+            <th>发布时间</th>
+            <th>作者</th>
+            <th>所属板块</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td><a href="{{ url_for('front.post_detail',post_id=post.id) }}">{{ post.title }}</a></td>
+                    <td>{{ post.create_time }}</td>
+                    <td>{{ post.author.username }}</td>
+                    <td>{{ post.board.name }}</td>
+                    <td>
+                        {% if post.is_elite %}
+                            <span class="btn btn-info btn-xs is_elite" data-post-elite="1" data-post-id={{ post.id }}>取消加精</span>
+                        {% else %}
+                            <span class="btn btn-success btn-xs is_elite" data-post-elite="0" data-post-id={{ post.id }}>加精</span>
+                        {% endif %}
+                        {% if post.is_remove %}
+                            <span class="btn btn-warning btn-xs" data-post-id = {{ post.id  }}>已移除</span>
+                        {% else %}
+                            <span class="btn btn-danger btn-xs is_remove" data-post-id = {{ post.id  }}>移除</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if total_page > 1 %}
+        <div class="page-nav">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if c_page<=1 %}
+                    <li class="disabled">
+                        <span aria-hidden="true">&laquo;</span>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ url_for('cms.post_list',page=c_page - 1,sort=sort,board=c_board_id)}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for page in page_list %}
+                    <li {% if page==c_page %}
+                        class="active"
+                    {% endif %}>
+                        <a href="{{ url_for('cms.post_list',page=page,sort=sort,board=c_board_id) }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if c_page == total_page %}
+                    <li class="disabled">
+                        <span aria-hidden="true">&raquo;</span>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ url_for('cms.post_list',page=c_page + 1,sort=sort,board=c_board_id) }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                <li>
+                    <span>共{{ total_page }}页</span>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+{% endblock %}
